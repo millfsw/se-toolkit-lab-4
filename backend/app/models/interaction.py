@@ -38,3 +38,6 @@ class InteractionModel(SQLModel):
     item_id: int
     kind: str
     created_at: datetime
+
+
+

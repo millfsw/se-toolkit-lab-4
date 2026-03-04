@@ -8,7 +8,9 @@ interface Item {
   type: string
   title: string
   created_at: string
+  description: string // 1. Добавили поле в интерфейс
 }
+
 
 function App() {
   const [token, setToken] = useState(
@@ -44,7 +46,8 @@ function App() {
 
   function handleConnect(e: FormEvent) {
     e.preventDefault()
-    const trimmed = draft.trim()
+    // 4. Очистка от лишних символов, чтобы не было ошибки ISO-8859-1
+    const trimmed = draft.trim().replace(/[^\x00-\x7F]/g, "") 
     if (!trimmed) return
     localStorage.setItem(STORAGE_KEY, trimmed)
     setToken(trimmed)
@@ -93,6 +96,7 @@ function App() {
               <th>ID</th>
               <th>Type</th>
               <th>Title</th>
+              <th>Description</th> {/* 2. Добавили заголовок */}
               <th>Created at</th>
             </tr>
           </thead>
@@ -102,6 +106,7 @@ function App() {
                 <td>{item.id}</td>
                 <td>{item.type}</td>
                 <td>{item.title}</td>
+                <td>{item.description}</td> {/* 3. Добавили вывод данных */}
                 <td>{item.created_at}</td>
               </tr>
             ))}
